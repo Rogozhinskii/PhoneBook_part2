@@ -1,0 +1,33 @@
+﻿@model Page<PhoneBook.Models.PhoneRecordViewModel>
+
+<form>
+    <div>
+        <p>
+            <input class="text-field__input" type="text" name="searchString" placeholder="Search"
+                value="@ViewData["CurrentFilter"]" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="submit" class="btn btn-default" style="padding: 0px;" value="Search" />
+        </p>
+    </div>
+</form>
+
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model)
+</div>    
+
+@section Scripts{
+<script type="text/javascript">
+    function selectedText(ddlitem) {
+        var selvalue = ddlitem.value;
+        var selText = ddlitem.options[ddlitem.selectedIndex].innerHTML;
+        $('@ViewData["PageSize"]').val(selText);
+    }
+    $(document).ready(function() {
+        var msg="@TempData["SuccessMessage"]";
+        if(msg)
+            openSuccessModal(msg);
+
+    })
+</script>
+}

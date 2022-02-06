@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\PhoneBook.Common\PhoneBook.Common.csproj" />
+    <ProjectReference Include="..\..\Services\PhoneBook.Interfaces\PhoneBook.Interfaces.csproj" />
+  </ItemGroup>
+
+
+
+
+</Project>
