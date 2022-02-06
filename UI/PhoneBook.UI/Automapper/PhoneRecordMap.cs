@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PhoneBook.Entities;
+using PhoneBook.DAL.Entities;
 using PhoneBook.Models;
 
 namespace PhoneBook.Automapper

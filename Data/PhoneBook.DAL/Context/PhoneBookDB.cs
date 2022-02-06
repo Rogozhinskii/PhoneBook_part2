@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PhoneBook.Entities;
+using PhoneBook.DAL.Entities;
 
 namespace PhoneBook.DAL.Context
 {

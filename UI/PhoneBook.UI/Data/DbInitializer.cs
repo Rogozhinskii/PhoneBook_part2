@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhoneBook.Common.RandomInfo;
 using PhoneBook.DAL.Context;
-using PhoneBook.Entities;
+using PhoneBook.DAL.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 

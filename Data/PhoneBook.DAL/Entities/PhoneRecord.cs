@@ -1,13 +1,13 @@
 ﻿using PhoneBook.DAL.Entities.Base;
 using System.ComponentModel.DataAnnotations;
 
-namespace PhoneBook.Entities
+namespace PhoneBook.DAL.Entities
 {
     /// <summary>
     /// Сущность записи телефонной книги
     /// 
     /// </summary>
-    public class PhoneRecord:Entity
+    public class PhoneRecord : Entity
     {
         /// <summary>
         /// Имя

@@ -24,9 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{D3
 		DataBase\PhoneBookDB.db = DataBase\PhoneBookDB.db
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.DAL.SQLite", "PhoneBook.DAL.SQLite\PhoneBook.DAL.SQLite.csproj", "{FF0A954A-67F5-400B-9648-DE01C867AFAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.DAL.SQLite", "PhoneBook.DAL.SQLite\PhoneBook.DAL.SQLite.csproj", "{FF0A954A-67F5-400B-9648-DE01C867AFAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.DAL.SqlServer", "PhoneBook.DAL.SqlServer\PhoneBook.DAL.SqlServer.csproj", "{F51862E4-6454-4D2F-B05A-C611CC56275A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.DAL.SqlServer", "PhoneBook.DAL.SqlServer\PhoneBook.DAL.SqlServer.csproj", "{F51862E4-6454-4D2F-B05A-C611CC56275A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests\Tests.csproj", "{F008A847-7172-4755-8A43-EB8623B0E37A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{F51862E4-6454-4D2F-B05A-C611CC56275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F51862E4-6454-4D2F-B05A-C611CC56275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F51862E4-6454-4D2F-B05A-C611CC56275A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F008A847-7172-4755-8A43-EB8623B0E37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F008A847-7172-4755-8A43-EB8623B0E37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F008A847-7172-4755-8A43-EB8623B0E37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F008A847-7172-4755-8A43-EB8623B0E37A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

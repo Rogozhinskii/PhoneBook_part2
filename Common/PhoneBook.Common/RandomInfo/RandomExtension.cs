@@ -1,4 +1,6 @@
-﻿namespace System
+﻿using System;
+
+namespace PhoneBook.Common.RandomInfo
 {
     public static class RandomExtension
     {
