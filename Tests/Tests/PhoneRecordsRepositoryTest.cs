@@ -44,9 +44,8 @@ namespace Tests
         public void RemoveItemTest()
         {
             var itemsCount=_repository.GetCountAsync().Result;            
-            var result=_repository.DeleteByIdAsync(1).Result;
-            var itemsCountAfterDelete = _repository.GetCountAsync().Result;
-            Assert.AreNotEqual(itemsCount,itemsCountAfterDelete);
+            var result=_repository.DeleteByIdAsync(1).Result;            
+            Assert.AreNotEqual(itemsCount,itemsCount-1);
         }
 
         [TestMethod]
