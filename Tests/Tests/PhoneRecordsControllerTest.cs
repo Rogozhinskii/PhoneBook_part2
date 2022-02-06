@@ -46,5 +46,21 @@ namespace Tests
             var result=_controller.Details(((_repository.GetAllAsync()).Result).FirstOrDefault().Id).Result as ViewResult;
             Assert.IsNotNull(result.Model);
         }
+
+        [TestMethod]
+        [DataRow(1)]
+        public void GetDeleteTest(int id)
+        {
+            var result = _controller.Delete(id).Result as ViewResult;
+            var model = result.Model as PhoneRecordViewModel;
+            Assert.IsNotNull(model);
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        public void DeleteConfirmedTest(int id)
+        {
+           
+        }
     }
 }

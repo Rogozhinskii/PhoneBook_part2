@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PhoneBook.Automapper;
-using PhoneBook.DAL.Entities;
+using PhoneBook.Commands;
 using PhoneBook.Models;
 
 namespace PhoneBook.Controllers
@@ -13,15 +13,15 @@ namespace PhoneBook.Controllers
     /// </summary>
     public class PhoneRecordsController : Controller
     {
-        
-        private readonly IMappedRepository<PhoneRecordViewModel, PhoneRecord> _repository;
+                
         private readonly ILogger _logger;
+        private readonly IMediator _mediator;
 
-        public PhoneRecordsController(IMappedRepository<PhoneRecordViewModel,PhoneRecord> repository,
+        public PhoneRecordsController(IMediator mediator,
                                       ILogger<PhoneRecordsController> logger)
-        {
-            _repository = repository;
-            _logger = logger;            
+        {            
+            _logger = logger;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace PhoneBook.Controllers
             ViewData["pageSize"] = pageSize;
             ViewData["CurrentFilter"] = searchString;
             _logger.LogInformation($"Redirect to {nameof(PhoneRecordsController)} index page.Filter text:{searchString}");
-            return View(await _repository.GetPage(pageIndex ?? 0, pageSize??5));            
+            return View(await _mediator.Send(new GetPageQuery { PageIndex=pageIndex.Value, PageSize=pageSize.Value}));            
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace PhoneBook.Controllers
         public async Task<IActionResult> Delete(int? id)
         {            
             if (id is null) return NotFound();
-            return View(await _repository.GetByIdAsync(id.Value));
+            return View(await _mediator.Send(new GetPhoneRecordByIdQuery { Id=id.Value}));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace PhoneBook.Controllers
         {
             if (record is null) return NotFound();
             _logger.LogInformation($">>>Start creating a new record.");
-            var result=await _repository.AddAsync(record);
+            var result=await _mediator.Send(new CreateRecordCommand { PhoneRecord=record });            
             _logger.LogInformation($">>>New record created. Record id is {result.Id}");           
             TempData["SuccessMessage"] = $"Record created";
             return Redirect("~/");
@@ -116,7 +116,7 @@ namespace PhoneBook.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if(id is null) return NotFound();
-            return View(await _repository.GetByIdAsync(id.Value));
+            return View(await _mediator.Send(new GetPhoneRecordByIdQuery { Id=id.Value}));
         }
 
         /// <summary>

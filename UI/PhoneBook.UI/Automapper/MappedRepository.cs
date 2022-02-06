@@ -53,6 +53,8 @@ namespace PhoneBook.Automapper
             new Page<T>(GetItem(page.Items), page.TotalCount, page.PageIndex, page.PageSize);
         
 
+        
+
         public async Task<IPage<T>> GetPage(int pageIndex, int pageSize, CancellationToken cancel = default)
         {
             var result = await _repository.GetPage(pageIndex, pageSize);
@@ -64,6 +66,14 @@ namespace PhoneBook.Automapper
             var items = await _repository.WhereAsync(filterExpression, cancel).ConfigureAwait(false);
             return new Page<T>(GetItem(items), items.Count(), 0, items.Count());
         }
+
+        public async Task<IPage<T>> GetPage(Func<T, bool> filterExpression, CancellationToken cancel = default)
+        {
+            var expression=_mapper.Map<Func<TBase, bool>>(filterExpression);
+            var items = await _repository.WhereAsync(expression, cancel).ConfigureAwait(false);
+            return new Page<T>(GetItem(items), items.Count(), 0, items.Count());
+        }
+
 
         public async Task<T> GetByIdAsync(int id, CancellationToken cancel = default)
         {

@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,8 @@ namespace PhoneBook
             services.AddDatabase(Configuration).AddAutoMapper(typeof(Startup))
                    .AddScoped(typeof(IRepository<>), typeof(DbRepository<>))
                    .AddScoped(typeof(IMappedRepository<,>), typeof(MappedRepository<,>))
-                   .AddScoped(typeof(DbInitializer))                   
+                   .AddScoped(typeof(DbInitializer))
+                   .AddMediatR(typeof(Startup))
                    .AddControllersWithViews();
         }
 

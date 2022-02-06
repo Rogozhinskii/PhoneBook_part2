@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhoneBook.Automapper
+namespace PhoneBook.Interfaces
 {
     /// <summary>
     /// Интерфейс для объектно-объектного преобразования сущностей хранилища и вьюмоделей представления
