@@ -6,11 +6,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhoneBook.Commands
+namespace PhoneBook.CommandsAndQueries.Queries
 {
     public class GetFilteredPageQuery:IRequest<IPage<PhoneRecordViewModel>>
     {
-        public Func<PhoneRecordViewModel, bool> FilterExpression { get; set; }        
+        public Func<dynamic, bool> FilterExpression { get; set; }
     }
 
     public class GetFilteredPageQueryHandler : IRequestHandler<GetFilteredPageQuery, IPage<PhoneRecordViewModel>>
@@ -21,7 +21,7 @@ namespace PhoneBook.Commands
             _repository = repository;
         }        
         public async Task<IPage<PhoneRecordViewModel>> Handle(GetFilteredPageQuery request, CancellationToken cancellationToken)
-        {
+        {            
             return await _repository.GetPage(request.FilterExpression, cancellationToken);  
         }
     }

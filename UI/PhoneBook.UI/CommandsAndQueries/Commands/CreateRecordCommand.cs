@@ -5,7 +5,7 @@ using PhoneBook.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhoneBook.Commands
+namespace PhoneBook.CommandsAndQueries.Commands
 {
     public class CreateRecordCommand:IRequest<PhoneRecordViewModel>
     {

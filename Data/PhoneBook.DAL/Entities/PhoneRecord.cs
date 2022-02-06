@@ -1,4 +1,5 @@
 ﻿using PhoneBook.DAL.Entities.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneBook.DAL.Entities
@@ -7,7 +8,7 @@ namespace PhoneBook.DAL.Entities
     /// Сущность записи телефонной книги
     /// 
     /// </summary>
-    public class PhoneRecord : Entity
+    public class PhoneRecord : Entity, IEquatable<PhoneRecord>
     {
         /// <summary>
         /// Имя
@@ -36,5 +37,12 @@ namespace PhoneBook.DAL.Entities
         /// Описание
         /// </summary>
         public string Description { get; set; }
+
+        public bool Equals(PhoneRecord other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
     }
 }

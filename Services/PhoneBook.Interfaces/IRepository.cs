@@ -87,7 +87,7 @@ namespace PhoneBook.Interfaces
         /// <param name="filterExpression"></param>
         /// <param name="cancel"></param>
         /// <returns></returns>
-        Task<IEnumerable<T>> WhereAsync(Func<T, bool> filterExpression, CancellationToken cancel = default);
+        Task<IEnumerable<dynamic>> WhereAsync(Func<dynamic, bool> filterExpression, CancellationToken cancel = default);
 
         /// <summary>
         /// Изменяет режим сохранения изменений в хранилище. если autoSaveChanges is true, то сохранения будут выполняться автоматически

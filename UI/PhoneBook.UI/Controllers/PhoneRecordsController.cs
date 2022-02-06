@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PhoneBook.Commands;
+using PhoneBook.CommandsAndQueries.Commands;
+using PhoneBook.CommandsAndQueries.Queries;
 using PhoneBook.Models;
 
 namespace PhoneBook.Controllers
@@ -39,8 +40,11 @@ namespace PhoneBook.Controllers
                 pageIndex = 0;
                 ViewData["CurrentFilter"] = searchString;
                 _logger.LogInformation($"Redirect to {nameof(PhoneRecordsController)} index page.Filter text:{searchString}");
-                return View(await _repository.GetPage(x => x.FirstName.Contains(searchString,StringComparison.InvariantCultureIgnoreCase)
-                                                        || x.LastName.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)));
+                return View(await _mediator.Send(new GetFilteredPageQuery
+                {
+                    FilterExpression = x => x.FirstName.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.LastName.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
+                }));
             }
             else{
                 searchString = currentFilter;
@@ -48,9 +52,9 @@ namespace PhoneBook.Controllers
             ViewData["pageSize"] = pageSize;
             ViewData["CurrentFilter"] = searchString;
             _logger.LogInformation($"Redirect to {nameof(PhoneRecordsController)} index page.Filter text:{searchString}");
-            return View(await _mediator.Send(new GetPageQuery { PageIndex=pageIndex.Value, PageSize=pageSize.Value}));            
+            return View(await _mediator.Send(new GetPageQuery { PageIndex=pageIndex??0, PageSize=pageSize??5}));            
         }
-
+               
         /// <summary>
         /// Get метод представления предпросмсотра удаляемой записи
         /// </summary>
@@ -73,7 +77,7 @@ namespace PhoneBook.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             _logger.LogInformation($">>>Start deleting record. Record id is :{id}");
-            if (await _repository.DeleteByIdAsync(id) is null) return NotFound();
+            if (await _mediator.Send(new DeleteByIdRecordCommand { Id=id}) is null) return NotFound();
             _logger.LogInformation($">>>Record deleted. Record id is :{id}");
             TempData["SuccessMessage"] = $"Record deleted";
             return Redirect("~/");
@@ -127,7 +131,7 @@ namespace PhoneBook.Controllers
         [HttpPost]
         [ActionName(nameof(Edit))]
         public async Task<IActionResult> Edit(PhoneRecordViewModel phoneRecord) =>
-            await _repository.UpdateAsync(phoneRecord) is { } record
+            await _mediator.Send(new UpdateRecordCommand { UpdatableRecord=phoneRecord}) is { } record
             ? Redirect("~/")
             : NotFound();
 
@@ -143,7 +147,7 @@ namespace PhoneBook.Controllers
                 _logger.LogError($"{nameof(PhoneRecordsController)}/Details passed id is null.");
                 return NotFound();
             }
-            if (await _repository.GetByIdAsync(id.Value) is { } record){
+            if (await _mediator.Send(new GetPhoneRecordByIdQuery { Id = id.Value }) is { } record){
                 _logger.LogInformation($">>>output of complete information about the record id:{id}");
                 return View(record);
             }

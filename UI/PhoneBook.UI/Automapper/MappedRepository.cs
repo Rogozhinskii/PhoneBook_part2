@@ -4,6 +4,7 @@ using PhoneBook.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,6 +36,8 @@ namespace PhoneBook.Automapper
         /// <returns></returns>
         protected virtual T GetItem(TBase item) => _mapper.Map<T>(item);
 
+
+
         /// <summary>
         /// Конвертирует перечисление объектов T в перечисление объектов TBase
         /// </summary>
@@ -49,6 +52,9 @@ namespace PhoneBook.Automapper
         /// <returns></returns>
         protected virtual IEnumerable<T> GetItem(IEnumerable<TBase> items) => _mapper.Map<IEnumerable<T>>(items);
 
+
+        protected virtual IEnumerable<T> GetItem(IEnumerable<dynamic> items) => _mapper.Map<IEnumerable<T>>(items);
+
         protected IPage<T> GetItem(IPage<TBase> page)=>
             new Page<T>(GetItem(page.Items), page.TotalCount, page.PageIndex, page.PageSize);
         
@@ -61,18 +67,19 @@ namespace PhoneBook.Automapper
             return GetItem(result);
         }
 
-        public async Task<IPage<T>> GetPage(Func<TBase, bool> filterExpression, CancellationToken cancel = default)
-        {
+       
+        public async Task<IPage<T>> GetPage(Func<dynamic, bool> filterExpression, CancellationToken cancel = default)
+        {   
             var items = await _repository.WhereAsync(filterExpression, cancel).ConfigureAwait(false);
             return new Page<T>(GetItem(items), items.Count(), 0, items.Count());
         }
 
-        public async Task<IPage<T>> GetPage(Func<T, bool> filterExpression, CancellationToken cancel = default)
-        {
-            var expression=_mapper.Map<Func<TBase, bool>>(filterExpression);
-            var items = await _repository.WhereAsync(expression, cancel).ConfigureAwait(false);
-            return new Page<T>(GetItem(items), items.Count(), 0, items.Count());
-        }
+        //public async Task<IPage<T>> GetPage(Func<T, bool> filterExpression, CancellationToken cancel = default)
+        //{
+        //    var expression=_mapper.Map<Func<TBase, bool>>(filterExpression);
+        //    var items = await _repository.WhereAsync(expression, cancel).ConfigureAwait(false);
+        //    return new Page<T>(GetItem(items), items.Count(), 0, items.Count());
+        //}
 
 
         public async Task<T> GetByIdAsync(int id, CancellationToken cancel = default)

@@ -27,7 +27,7 @@ namespace PhoneBook.Interfaces
         /// <param name="filterExpression"></param>
         /// <param name="cancel"></param>
         /// <returns></returns>
-        Task<IPage<T>> GetPage(Func<TBase, bool> filterExpression, CancellationToken cancel = default);
+        Task<IPage<T>> GetPage(Func<dynamic, bool> filterExpression, CancellationToken cancel = default);
 
         /// <summary>
         /// Возвращает страницу наполенную количеством вью моделей сущностей равным pageSize

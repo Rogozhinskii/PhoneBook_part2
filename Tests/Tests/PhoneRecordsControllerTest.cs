@@ -27,7 +27,7 @@ namespace Tests
             var mapper=config.CreateMapper();
             _repository = ContextHelper.Repository;
             _mappedRepository = new MappedRepository<PhoneRecordViewModel, PhoneRecord>(_repository,mapper);
-            _controller=new PhoneRecordsController(_mappedRepository, logger);
+            
         }
                 
 

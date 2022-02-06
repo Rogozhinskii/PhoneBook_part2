@@ -5,7 +5,7 @@ using PhoneBook.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhoneBook.Commands
+namespace PhoneBook.CommandsAndQueries.Queries
 {
     public class GetPhoneRecordByIdQuery:IRequest<PhoneRecordViewModel>
     {

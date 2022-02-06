@@ -104,7 +104,7 @@ namespace PhoneBook.DAL.Repository
             return await DeleteAsync(item, cancel).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<T>> WhereAsync(Func<T, bool> filterExpression, CancellationToken cancel = default) =>
+        public async Task<IEnumerable<dynamic>> WhereAsync(Func<dynamic, bool> filterExpression, CancellationToken cancel = default) =>
             await Task.Run(() => Items.Where(filterExpression),cancel).ConfigureAwait(false);
 
         public async Task<int> SaveChangesAsync(CancellationToken cancel = default)=>
